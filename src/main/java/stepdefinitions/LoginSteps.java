@@ -1,8 +1,9 @@
 package stepdefinitions;
 
-import io.cucumber.java.zh_cn.假如;
-import io.cucumber.java.zh_cn.当;
-import io.cucumber.java.zh_cn.那么;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.When;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.And;
 
 public class LoginSteps {
     private String username;
@@ -10,59 +11,58 @@ public class LoginSteps {
     private boolean loginSuccessful;
     private String message;
 
-    @假如("用户在登录页面")
-    public void 用户在登录页面() {
-        System.out.println("打开登录页面");
+    @Given("user is on the login page")
+    public void userIsOnTheLoginPage() {
+        System.out.println("Opening login page");
         loginSuccessful = false;
         message = "";
     }
 
-    @当("用户输入用户名 {string}")
-    public void 用户输入用户名(String username) {
+    @When("user enters username {string}")
+    public void userEntersUsername(String username) {
         this.username = username;
-        System.out.println("输入用户名: " + username);
+        System.out.println("Entering username: " + username);
     }
 
-    @当("用户输入密码 {string}")
-    public void 用户输入密码(String password) {
+    @And("user enters password {string}")
+    public void userEntersPassword(String password) {
         this.password = password;
-        System.out.println("输入密码: " + password);
+        System.out.println("Entering password: " + password);
     }
 
-    @当("用户点击登录按钮")
-    public void 用户点击登录按钮() {
-        System.out.println("点击登录按钮");
-        // 简单的登录逻辑模拟
+    @And("user clicks the login button")
+    public void userClicksTheLoginButton() {
+        System.out.println("Clicking login button");
         if ("testuser".equals(username) && "password123".equals(password)) {
             loginSuccessful = true;
-            message = "欢迎, " + username + "!";
+            message = "Welcome, " + username + "!";
         } else {
             loginSuccessful = false;
-            message = "用户名或密码错误";
+            message = "Invalid username or password";
         }
     }
 
-    @那么("用户应该成功登录")
-    public void 用户应该成功登录() {
+    @Then("user should be logged in successfully")
+    public void userShouldBeLoggedInSuccessfully() {
         if (!loginSuccessful) {
-            throw new AssertionError("登录失败");
+            throw new AssertionError("Login failed");
         }
-        System.out.println("登录成功");
+        System.out.println("Login successful");
     }
 
-    @那么("用户应该看到欢迎消息 {string}")
-    public void 用户应该看到欢迎消息(String expectedMessage) {
+    @And("user should see welcome message {string}")
+    public void userShouldSeeWelcomeMessage(String expectedMessage) {
         if (!message.equals(expectedMessage)) {
-            throw new AssertionError("期望消息: " + expectedMessage + ", 实际消息: " + message);
+            throw new AssertionError("Expected: " + expectedMessage + ", Actual: " + message);
         }
-        System.out.println("看到消息: " + message);
+        System.out.println("Seeing message: " + message);
     }
 
-    @那么("用户应该看到错误消息 {string}")
-    public void 用户应该看到错误消息(String expectedMessage) {
+    @Then("user should see error message {string}")
+    public void userShouldSeeErrorMessage(String expectedMessage) {
         if (!message.equals(expectedMessage)) {
-            throw new AssertionError("期望错误消息: " + expectedMessage + ", 实际消息: " + message);
+            throw new AssertionError("Expected: " + expectedMessage + ", Actual: " + message);
         }
-        System.out.println("看到错误消息: " + message);
+        System.out.println("Seeing error message: " + message);
     }
 }
