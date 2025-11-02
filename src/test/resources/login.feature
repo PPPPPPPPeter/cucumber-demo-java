@@ -17,3 +17,4 @@ Feature: User Login
     And user enters password "wrongpassword"
     And user clicks the login button
     Then user should see error message "Invalid username or password"
+
